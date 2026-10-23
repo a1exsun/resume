@@ -1,0 +1,258 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "meta": {
+    "version": "v1.0.0",
+    "lastModified": "2026-10-23T00:00:00"
+  },
+  "basics": {
+    "name": "Xun (Alex) Sun",
+    "email": "me@xsun.work",
+    "phone": "+61 434 570 098",
+    "url": "https://xsun.work",
+    "summary": "Full-stack engineer with 5+ years of experience delivering 20+ projects for Tesla, Nissan, Yanfeng and CLEP, and led a 22-member R&D team. First author of _HERD_, a hybrid continual learning framework for LLMs. Shipped AI products end to end, from GPU cloud infrastructure to medical agents. Active open-source contributor.",
+    "label": "AI Engineer · Full-stack & Infrastructure",
+    "image": "https://cdn.jsdelivr.net/gh/a1exsun/file@main/resume/me@linkedin.svg"
+  },
+  "education": [
+    {
+      "institution": "Monash University",
+      "studyType": "Master",
+      "area": "Artificial Intelligence",
+      "startDate": "2025-02",
+      "endDate": "2026-12",
+      "endDateExpected": true,
+      "score": "GPA 3.90/4.00 · WAM 88.10"
+    },
+    {
+      "institution": "Suzhou University of Science and Technology",
+      "studyType": "Bachelor",
+      "area": "Computer Science",
+      "startDate": "2016-09",
+      "endDate": "2020-06",
+      "score": "GPA 3.00/4.00"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AI",
+      "keywords": [
+        "Harness Engineering",
+        "MCP",
+        "ACP",
+        "LangGraph",
+        "MLOps",
+        "vLLM",
+        "Comfy",
+        "LLM Evaluation",
+        "Knowledge Distillation"
+      ]
+    },
+    {
+      "name": "Frontend",
+      "keywords": [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Vue",
+        "Three.js",
+        "Micro-frontend",
+        "Tailwind",
+        "shadcn/ui",
+        "WebAssembly"
+      ]
+    },
+    {
+      "name": "Backend",
+      "keywords": [
+        "Python",
+        "FastAPI",
+        "NestJS",
+        "PostgreSQL",
+        "Redis",
+        "MongoDB",
+        "Prisma",
+        "RabbitMQ"
+      ]
+    },
+    {
+      "name": "DevOps",
+      "keywords": [
+        "AWS",
+        "GCP",
+        "Cloudflare",
+        "Supabase",
+        "Docker",
+        "Kubernetes",
+        "GitHub Actions",
+        "Modal",
+        "Vast.ai"
+      ]
+    }
+  ],
+  "work": [
+    {
+      "position": "Monash Vacation Research Intern",
+      "name": "Monash University",
+      "location": "Melbourne, Australia",
+      "url": "https://github.com/a1exsun/monash-summer-research-2025",
+      "startDate": "2025-11",
+      "endDate": "2026-01",
+      "employmentType": "Full-time",
+      "highlights": [
+        "Built an AI system for 3D-printed footwear, from foot scanning to parametric shoe-last generation.",
+        "Automated Blender workflows for upper and sole optimization and nTop workflows for lattice generation."
+      ]
+    },
+    {
+      "position": "AI Engineer",
+      "location": "Melbourne, Australia",
+      "startDate": "2024-10",
+      "employmentType": "Part-time",
+      "highlights": [
+        "Delivered AI products for Australian businesses and the open-source community alongside postgraduate study, owning architecture, development and deployment end to end.",
+        "Built products spanning elastic GPU infrastructure, AI role-playing, voice customer service and learning tools."
+      ]
+    },
+    {
+      "position": "Software Engineering Manager",
+      "name": "Wandeyitong Technology Co., Ltd.",
+      "location": "Beijing, China",
+      "startDate": "2022-02",
+      "endDate": "2024-09",
+      "employmentType": "Full-time",
+      "highlights": [
+        "Led a 22-member engineering team, reporting to the CTO; developed core features and established agile delivery and end-to-end DevOps workflows.",
+        "Introduced AI-assisted programming and built an enterprise-grade automated delivery workflow for AI coding."
+      ]
+    },
+    {
+      "position": "Software Developer",
+      "name": "Wandeyitong Technology Co., Ltd.",
+      "location": "Beijing, China",
+      "startDate": "2020-06",
+      "endDate": "2022-02",
+      "employmentType": "Full-time",
+      "highlights": [
+        "Developed core features for Wonder Insight, an in-house PLM platform, and Teamcenter projects."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Oiy AI",
+      "url": "https://oiy.ai",
+      "description": "Elastic GPU cloud with usage-based billing, persistent volumes and container lifecycle management through a web console, Python SDK/CLI and MCP server.",
+      "highlights": [
+        "Architected and built the platform: a Cloudflare Workers control plane with Durable Object ledgers, Stripe billing and a provider gateway over Kubernetes and Runpod."
+      ],
+      "keywords": [
+        "Cloudflare Workers",
+        "Durable Objects",
+        "Kubernetes",
+        "KEDA",
+        "NVIDIA MIG",
+        "Runpod",
+        "Stripe",
+        "MCP"
+      ],
+      "type": "application",
+      "urlLabel": "oiy.ai"
+    },
+    {
+      "name": "Anify",
+      "url": "https://anify.ai",
+      "description": "AI role-playing engine with persistent worlds, rules-based gameplay and generated scenes, available through a Codex plugin and web client.",
+      "highlights": [
+        "Designed the shared MCP game engine and multi-tenant Codex SDK gateway; built all 3D features, including Gaussian Splatting scenes, and the DevOps pipelines."
+      ],
+      "keywords": [
+        "TypeScript",
+        "Three.js",
+        "Gaussian Splatting",
+        "Codex SDK",
+        "MCP",
+        "Durable Objects",
+        "Firebase",
+        "GCP"
+      ],
+      "type": "application",
+      "urlLabel": "anify.ai"
+    },
+    {
+      "name": "Light Viewer",
+      "url": "https://viewer.xsun.work",
+      "urlLabel": "Demo",
+      "description": "Cross-platform 3D viewer for manufacturing, preserving JT model parameters and annotations with support for assemblies of 100,000+ parts.",
+      "highlights": [
+        "Sole developer responsible for architecture and implementation. Delivered BOM-based multi-file rendering with 90% time savings and served as the primary technical liaison with Siemens support."
+      ],
+      "keywords": [
+        "Three.js",
+        "WebGL",
+        "Vue",
+        "Electron",
+        "Siemens JT Toolkit",
+        "Teamcenter"
+      ],
+      "type": "application"
+    },
+    {
+      "name": "Author & contributor",
+      "url": "https://github.com/a1exsun",
+      "highlights": [
+        "Author of [DSH Council](https://github.com/a1exsun/dsh-council) (150+ stars), an anonymous model cross-review harness; [Learnify](https://github.com/oiy-ai/learnify) (130+ stars), an AI learning platform; and [Bright Here](https://github.com/a1exsun/bright-here) (50+ stars), a macOS display brightness tool.",
+        "Merged contributions to [osxphotos](https://github.com/RhetTbull/osxphotos/pull/2269) (3.9K+ stars) and [Pulse](https://github.com/qunqin24/Pulse/pull/41) (590+ stars) and more."
+      ],
+      "type": "open-source",
+      "urlLabel": "GitHub"
+    },
+    {
+      "name": "Wonder Insight",
+      "description": "In-house PLM platform covering 70%+ of Teamcenter; 10M+ RMB in first-year contracts.",
+      "type": "enterprise"
+    },
+    {
+      "name": "Chinese Lunar Exploration Program (CLEP)",
+      "description": "Project management system.",
+      "type": "enterprise"
+    },
+    {
+      "name": "Tesla Shanghai Factory",
+      "description": "Teamcenter Manufacturing implementation.",
+      "type": "enterprise"
+    },
+    {
+      "name": "Nissan Wuhan Factory",
+      "description": "Teamcenter Manufacturing implementation.",
+      "type": "enterprise"
+    },
+    {
+      "name": "Shaanxi Xi'an Fast Automobile",
+      "description": "Teamcenter Manufacturing implementation.",
+      "type": "enterprise"
+    },
+    {
+      "name": "Yanfeng LEMS",
+      "description": "OpenCV anomaly monitoring of ambient lighting and RAG-based failure analysis.",
+      "type": "enterprise"
+    },
+    {
+      "name": "Emerson Electric",
+      "description": "Product Data Management (PDM) Phase II on Teamcenter.",
+      "type": "enterprise"
+    }
+  ],
+  "publications": [
+    {
+      "name": "HERD: Harness-Evolving Recursive Distillation for Continual Learning",
+      "publisher": "Under review at ACL Rolling Review · Xun Sun, Thanh Thi Nguyen, Thuy-Trang Vu",
+      "startDate": "2026-02",
+      "releaseDate": "2026-10",
+      "url": "https://arxiv.org/abs/2610.31401",
+      "summary": "A hybrid continual learning framework that learns in an evolving harness and internalizes that experience into the weights via drift-constrained dual-anchor distillation. On the 25-stage TRACE+17 stream it matches the strongest baseline in new-task acquisition with the least forgetting. [Project page](https://a1exsun.github.io/HERD/)",
+      "highlights": [
+        "First author, solely handling framework design, algorithm implementation, benchmarks, experiments and writing."
+      ]
+    }
+  ]
+}

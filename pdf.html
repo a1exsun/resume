@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en" data-state="loading">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xun Sun - Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  @page {
+    size: letter;
+    margin: 0.5in 0.6in;
+  }
+
+  :root {
+    --ink: #151515;
+    --text: #292929;
+    --muted: #626262;
+    --rule: #ccc;
+    --display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    --sans: 'Geist', 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'Geist Mono', Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #fff; }
+  body {
+    font-family: var(--sans);
+    font-size: 10pt;
+    line-height: 1.48;
+    color: var(--text);
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  main { margin: 0 auto; counter-reset: section; }
+  h1, h2, h3 { margin: 0; color: var(--ink); break-after: avoid; }
+  p, ul { margin: 0; }
+  p, li { orphans: 2; widows: 2; }
+  strong { font-weight: 600; color: var(--ink); }
+  a {
+    color: inherit;
+    text-decoration-color: #aaa;
+    text-decoration-thickness: 0.5pt;
+    text-underline-offset: 2.5px;
+  }
+  a:hover { text-decoration-color: var(--ink); }
+  a:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+
+  header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 24px;
+    padding-bottom: 18px;
+    border-bottom: 0.75pt solid var(--ink);
+  }
+  header > h1, header > .role, header > .contact { grid-column: 1; }
+  .qr {
+    grid-column: 2;
+    grid-row: 1 / 4;
+    align-self: center;
+    margin: 0;
+    text-align: center;
+  }
+  .qr img { display: block; width: 72px; height: 72px; padding: 6px; object-fit: contain; background: #fff; }
+  .qr figcaption { margin-top: 2px; font: 7.5pt var(--mono); color: var(--muted); }
+  h1 {
+    font-family: var(--display);
+    font-size: 38pt;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  h1 .nick { color: var(--muted); }
+  .role { margin-top: 10px; font-size: 10pt; font-weight: 500; }
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+    margin-top: 8px;
+    padding: 0;
+    list-style: none;
+    font-size: 9pt;
+    color: var(--muted);
+  }
+  .contact a { text-decoration: none; }
+  .contact a:hover { text-decoration: underline; }
+  .intro { margin-top: 17px; }
+
+  section { margin-top: 25px; counter-increment: section; }
+  h2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-family: var(--mono);
+    font-size: 8pt;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    margin-right: 14px;
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+  h2::after { content: ''; flex: 1; margin-left: 14px; border-top: 0.5pt solid var(--rule); }
+
+  .entry { break-inside: avoid; }
+  .entry + .entry { margin-top: 16px; }
+  .entry p { margin-top: 5px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+  .row > :first-child { min-width: 0; }
+  h3 { font-size: 10.5pt; font-weight: 600; line-height: 1.4; letter-spacing: -0.005em; }
+  .meta { margin-top: 2px; color: var(--muted); font-size: 9pt; }
+  .date {
+    flex: none;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 8pt;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .aside { flex: none; font-size: 9pt; font-variant-numeric: tabular-nums; }
+  .heading-link { margin-left: 12px; font-size: 8.5pt; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+  .highlights { margin-top: 6px; padding-left: 15px; }
+  .highlights li { padding-left: 2px; }
+  .highlights li + li { margin-top: 3px; }
+  .highlights li::marker { font-size: 0.8em; color: var(--muted); }
+  .delivery { margin-top: 0; font-size: 9pt; line-height: 1.45; color: var(--muted); }
+  .delivery li + li { margin-top: 2px; }
+  .delivery .name { font-weight: 500; color: var(--ink); }
+  .stack { color: var(--muted); font-size: 8.5pt; line-height: 1.5; }
+  .skills { display: grid; grid-template-columns: 76px 1fr; gap: 5px 18px; margin: 0; break-inside: avoid; }
+  .skills dt { font-size: 9pt; font-weight: 500; color: var(--ink); }
+  .skills dd { margin: 0; font-size: 9pt; }
+  .notice { padding: 1em; font-family: var(--mono); font-size: 13px; color: #b00; }
+
+  @media screen {
+    html, body { background: #efefef; }
+    main {
+      max-width: 8.5in;
+      margin: 32px auto;
+      padding: 0.5in 0.6in;
+      background: #fff;
+      box-shadow: 0 2px 18px rgb(0 0 0 / 5%);
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    body { font-size: 15px; line-height: 1.6; }
+    main { margin: 0; box-shadow: none; padding: 32px 24px; }
+    header { padding-bottom: 20px; column-gap: 12px; align-items: center; }
+    h1 { font-size: 36px; }
+    .qr { grid-row: 1; }
+    .qr img { width: 64px; height: 64px; padding: 6px; }
+    .qr figcaption { font-size: 10px; }
+    header > .role, header > .contact { grid-column: 1 / -1; }
+    .role { font-size: 14px; }
+    .contact { gap: 6px 16px; font-size: 13px; }
+    section { margin-top: 30px; }
+    h2 { font-size: 11px; margin-bottom: 15px; }
+    h3 { font-size: 16px; }
+    .row { flex-direction: column; gap: 3px; }
+    .meta, .aside, .stack { font-size: 13px; }
+    .date, .heading-link { font-size: 12px; }
+    .entry + .entry { margin-top: 22px; }
+    .skills { grid-template-columns: 1fr; gap: 3px; }
+    .skills dt, .skills dd, .delivery { font-size: 14px; }
+    .skills dd + dt { margin-top: 9px; }
+  }
+</style>
+</head>
+<body>
+<!-- Content comes from the JSON Resume file named in data-src (https://jsonresume.org/schema). -->
+<main id="resume" data-src="resume.json" aria-busy="true"></main>
+
+<script>
+(() => {
+  const root = document.getElementById('resume');
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const escape = (s = '') =>
+    String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+  // Inline markup allowed in JSON strings: **bold**, _italic_, [text](url). Input is escaped first.
+  const inline = (s) =>
+    escape(s)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|\W)_(.+?)_(?=\W|$)/g, '$1<em>$2</em>')
+      .replace(/\[(.+?)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2">$1</a>');
+
+  const paragraphs = (s = '') =>
+    s.split(/\n{2,}/).map((p) => `<p>${inline(p)}</p>`).join('');
+
+  const link = (url, label) => `<a href="${escape(url)}">${escape(label)}</a>`;
+  const headingLink = (url, label) => url ? `<span class="heading-link">${link(url, label)}</span>` : '';
+  const highlights = (items = []) => items.length
+    ? `<ul class="highlights">${items.map((item) => `<li>${inline(item)}</li>`).join('')}</ul>`
+    : '';
+
+  // "2025-02" -> "Feb 2025"; dates after today get "(Expected)".
+  const formatDate = (iso) => {
+    const [y, m] = iso.split('-').map(Number);
+    return m ? `${MONTHS[m - 1]} ${y}` : String(y);
+  };
+  const dateRange = (start, end) => {
+    if (!start) return '';
+    if (!end) return `${formatDate(start)} – Present`;
+    const expected = new Date(end) > new Date() ? ' (Expected)' : '';
+    return `${formatDate(start)} – ${formatDate(end)}${expected}`;
+  };
+
+  const section = (title, body) => body ? `<section><h2>${escape(title)}</h2>${body}</section>` : '';
+
+  // "Xun (Alex) Sun" -> the preferred name keeps the name's face and size, only lighter.
+  const displayName = (name) =>
+    escape(name).replace(/\([^()]*\)/g, '<span class="nick">$&</span>');
+
+  const header = ({ name = '', label, email, phone, url, summary, image }) => `
+    <header>
+      <h1>${displayName(name)}</h1>
+      ${label ? `<p class="role">${escape(label)}</p>` : ''}
+      <ul class="contact">
+        ${email ? `<li><a href="mailto:${escape(email)}">${escape(email)}</a></li>` : ''}
+        ${phone ? `<li><a href="tel:${escape(phone.replace(/[^\d+]/g, ''))}">${escape(phone)}</a></li>` : ''}
+        ${url ? `<li>${link(url, url.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</li>` : ''}
+      </ul>
+      ${image ? `<figure class="qr"><img src="${escape(image)}" alt="Scan to view Xun Sun on LinkedIn" width="72" height="72"><figcaption>LinkedIn</figcaption></figure>` : ''}
+    </header>
+    <div class="intro">${paragraphs(summary)}</div>`;
+
+  const education = (items = []) => items.map((e) => `
+    <div class="entry">
+      <div class="row">
+        <h3>${escape(e.institution)}</h3>
+        <span class="date">${dateRange(e.startDate, e.endDate)}</span>
+      </div>
+      <div class="row meta">
+        <span>${escape([e.studyType, e.area].filter(Boolean).join(' of '))}</span>
+        <span class="aside">${escape(e.score ?? '')}</span>
+      </div>
+    </div>`).join('');
+
+  const skills = (items = []) => items.length ? `
+    <dl class="skills">
+      ${items.map((s) => `<dt>${escape(s.name)}</dt><dd>${escape(s.keywords.join(', '))}</dd>`).join('')}
+    </dl>` : '';
+
+  const work = (items = []) => items.map((w) => `
+    <article class="entry">
+      <div class="row">
+        <h3>${escape(w.position)}${headingLink(w.url, 'GitHub')}</h3>
+        <span class="date">${dateRange(w.startDate, w.endDate)}</span>
+      </div>
+      <div class="row meta">
+        <span>${escape([w.name, w.location].filter(Boolean).join(' · '))}</span>
+        <span class="aside">${escape(w.employmentType ?? '')}</span>
+      </div>
+      ${highlights(w.highlights)}
+    </article>`).join('');
+
+  const publications = (items = []) => items.map((p) => `
+    <article class="entry">
+      <div class="row">
+        <h3>${escape(p.name)}</h3>
+        <span class="date">${[p.startDate, p.releaseDate].filter(Boolean).map(formatDate).join(' – ')}</span>
+      </div>
+      <div class="meta">${escape(p.publisher ?? '')}${headingLink(p.url, 'arXiv')}</div>
+      ${paragraphs(p.summary)}
+      ${highlights(p.highlights)}
+    </article>`).join('');
+
+  const projects = (items = []) => items.map((p) => `
+    <article class="entry">
+      <h3>${escape(p.name)}${headingLink(p.url, p.urlLabel)}</h3>
+      ${p.description ? `<p>${inline(p.description)}</p>` : ''}
+      ${highlights(p.highlights)}
+      ${p.keywords?.length ? `<p class="stack">${escape(p.keywords.join(' · '))}</p>` : ''}
+    </article>`).join('');
+
+  // One line per delivery: name, then a short scope.
+  const deliveries = (items = []) => items.length
+    ? `<ul class="highlights delivery">${items.map((p) => `<li><span class="name">${escape(p.name)}</span>${p.description ? `: ${inline(p.description)}` : ''}</li>`).join('')}</ul>`
+    : '';
+
+  const render = (r) => {
+    const name = r.basics?.name ?? '';
+    document.title = r.meta?.title ?? `${name.replace(/\s*\([^()]*\)/g, '').trim()} - Resume`;
+    root.innerHTML = [
+      header(r.basics ?? {}),
+      section('Education', education(r.education)),
+      section('Technical Skills', skills(r.skills)),
+      section('Experience', work(r.work)),
+      section('Research', publications(r.publications)),
+      section('Selected Projects', projects(r.projects?.filter((p) => p.type === 'application'))),
+      section('Open-source Contributions', projects(r.projects?.filter((p) => p.type === 'open-source'))),
+      section('Enterprise Delivery', deliveries(r.projects?.filter((p) => p.type === 'enterprise'))),
+    ].join('');
+  };
+
+  // Signals the PDF script (and anything else) once content and web fonts are in place.
+  const done = (state) => {
+    root.removeAttribute('aria-busy');
+    document.documentElement.dataset.state = state;
+  };
+
+  fetch(root.dataset.src, { cache: 'no-cache' })
+    .then((res) => {
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return res.json();
+    })
+    .then(render)
+    .then(() => document.fonts.ready)
+    .then(() => Promise.allSettled([...document.images].map((img) => img.decode())))
+    .then(() => done('ready'))
+    .catch((err) => {
+      const hint = location.protocol === 'file:'
+        ? 'Browsers block reading local JSON from file:// pages. Serve this repository over HTTP, for example with `pnpm dev`.'
+        : '';
+      root.innerHTML = `<div class="notice">Could not load ${escape(root.dataset.src)}: ${escape(err.message)}<br>${escape(hint)}</div>`;
+      done('error');
+    });
+})();
+</script>
+</body>
+</html>

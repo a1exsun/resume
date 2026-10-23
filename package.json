@@ -1,0 +1,9 @@
+{
+  "name": "resume",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 5190",
+    "test": "node --test"
+  }
+}
