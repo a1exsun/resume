@@ -206,15 +206,17 @@
     : '';
 
   // "2025-02" -> "Feb 2025"; dates after today get "(Expected)".
+  // Ranges use an ASCII hyphen, not an en dash: ATS imports (e.g. Workday) split on "-" and drop the date otherwise.
+  const DASH = ' - ';
   const formatDate = (iso) => {
     const [y, m] = iso.split('-').map(Number);
     return m ? `${MONTHS[m - 1]} ${y}` : String(y);
   };
   const dateRange = (start, end) => {
     if (!start) return '';
-    if (!end) return `${formatDate(start)} – Present`;
+    if (!end) return `${formatDate(start)}${DASH}Present`;
     const expected = new Date(end) > new Date() ? ' (Expected)' : '';
-    return `${formatDate(start)} – ${formatDate(end)}${expected}`;
+    return `${formatDate(start)}${DASH}${formatDate(end)}${expected}`;
   };
 
   const section = (title, body) => body ? `<section><h2>${escape(title)}</h2>${body}</section>` : '';
@@ -270,7 +272,7 @@
     <article class="entry">
       <div class="row">
         <h3>${escape(p.name)}</h3>
-        <span class="date">${[p.startDate, p.releaseDate].filter(Boolean).map(formatDate).join(' – ')}</span>
+        <span class="date">${[p.startDate, p.releaseDate].filter(Boolean).map(formatDate).join(DASH)}</span>
       </div>
       <div class="meta">${escape(p.publisher ?? '')}${headingLink(p.url, 'arXiv')}</div>
       ${paragraphs(p.summary)}
@@ -311,11 +313,21 @@
     document.documentElement.dataset.state = state;
   };
 
-  fetch(root.dataset.src, { cache: 'no-cache' })
-    .then((res) => {
-      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-      return res.json();
-    })
+  const load = (src) => fetch(src, { cache: 'no-cache' }).then((res) => {
+    if (!res.ok) throw new Error(`${src}: ${res.status} ${res.statusText}`);
+    return res.json();
+  });
+
+  // Same as VERSION_RE and withVersion in render.js: ?v=<v> layers versions/<v>.json over resume.json.
+  const version = new URLSearchParams(location.search).get('v');
+  const withVersion = (base, v) => ({ ...base, ...v, basics: { ...base.basics, ...v.basics } });
+  const data = !version
+    ? load(root.dataset.src)
+    : /^[a-z0-9-]+$/.test(version)
+      ? Promise.all([load(root.dataset.src), load(`versions/${version}.json`)]).then(([base, v]) => withVersion(base, v))
+      : Promise.reject(new Error(`invalid version "${version}"`));
+
+  data
     .then(render)
     .then(() => document.fonts.ready)
     .then(() => Promise.allSettled([...document.images].map((img) => img.decode())))

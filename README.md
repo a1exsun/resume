@@ -6,15 +6,29 @@ The resume at <https://me.xsun.work>. Static files, no build step: pushing `main
 | --- | --- |
 | `resume.json` | The content, in [JSON Resume](https://jsonresume.org/schema) format. Both pages render it at runtime. |
 | `index.html`, `main.js`, `render.js`, `styles.css` | The web resume. |
-| `pdf.html` | The print/PDF layout (Letter, two pages). Print it from the browser to export the PDF. |
+| `pdf.html` | The print/PDF layout (Letter, two pages). Print it from the browser, or with `npm run pdf`. |
+| `versions/<name>.json` | Tailored versions for specific applications (see below). |
+| `scripts/pdf.mjs` | Prints `pdf.html` to `out/` with headless Chrome. |
 
 The web and PDF versions show the same fields, sections and order; `tests/resume.test.js` fails if the web version drops anything the PDF shows.
+
+## Versions
+
+`resume.json` is the base. A version is a file `versions/<name>.json` (lowercase letters, digits, hyphens) that both pages layer over the base when opened with `?v=<name>`, e.g. `pdf.html?v=racv-mid-level-ai-engineer`.
+
+- Each top-level section a version contains (`skills`, `work`, `projects`, ...) **replaces** that section of the base whole; sections it leaves out come from the base.
+- `basics` is merged one level instead, so a version can change `label` or `summary` and keep the contact details from the base.
+- `meta.target` notes what the version is for; `meta.title` sets the PDF file name.
+
+Versions are served like any other file, so a deployed version is reachable by anyone who has its URL.
 
 ## Run
 
 ```sh
-npm run dev    # http://localhost:5190
-npm test       # node --test, no dependencies
+npm run dev                  # http://localhost:5190
+npm test                     # node --test, no dependencies
+npm run pdf                  # out/resume.pdf
+npm run pdf -- <version>     # out/<version>.pdf (macOS Chrome; set CHROME elsewhere)
 ```
 
 ## Web resume

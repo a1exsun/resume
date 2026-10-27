@@ -1,30 +1,36 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
-import { render } from '../render.js';
+import { render, withVersion } from '../render.js';
 
 const file = (name) => readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
 const resume = () => JSON.parse(file('resume.json'));
+const versions = readdirSync(new URL('../versions/', import.meta.url)).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5));
 const XSS = '<img src=x onerror="alert(1)"> **Safe**';
 
-test('pdf.html renders every entry and escapes source text', async () => {
-  const data = resume();
-  data.work[0].highlights.push(XSS);
+// Runs pdf.html's script against in-memory files; resolves with its final state and the rendered HTML.
+const runPdf = (files, search = '') => {
   const root = { dataset: { src: 'resume.json' }, innerHTML: '', removeAttribute: () => {} };
-  const state = await new Promise((resolve) => {
+  return new Promise((resolve) => {
     runInNewContext(file('pdf.html').match(/<script>([\s\S]*?)<\/script>/)[1], {
-      fetch: async () => ({ ok: true, json: async () => data }),
+      URLSearchParams,
+      fetch: async (src) => (src in files ? { ok: true, json: async () => files[src] } : { ok: false, status: 404, statusText: 'Not Found' }),
       document: {
         getElementById: () => root,
         fonts: { ready: Promise.resolve() },
         images: [{ decode: async () => {} }],
-        documentElement: { dataset: new Proxy({}, { set: (_, key, value) => (key === 'state' && resolve(value), true) }) },
+        documentElement: { dataset: new Proxy({}, { set: (_, key, value) => (key === 'state' && resolve({ state: value, html: root.innerHTML }), true) }) },
       },
-      location: { protocol: 'http:' },
+      location: { protocol: 'http:', search },
     });
   });
-  const html = root.innerHTML;
+};
+
+test('pdf.html renders every entry and escapes source text', async () => {
+  const data = resume();
+  data.work[0].highlights.push(XSS);
+  const { state, html } = await runPdf({ 'resume.json': data });
   const entries = [...data.work, ...data.projects.filter((p) => p.type !== 'enterprise'), ...data.publications];
   assert.equal(state, 'ready');
   assert.match(html, /<h1>Xun <span class="nick">\(Alex\)<\/span> Sun<\/h1>/);
@@ -38,8 +44,7 @@ test('pdf.html renders every entry and escapes source text', async () => {
   assert.deepEqual([...html.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1]).slice(0, 2), ['Education', 'Technical Skills']);
 });
 
-test('the web resume shows everything the PDF shows', () => {
-  const data = resume();
+const assertWebShowsAll = (data) => {
   const html = render(data);
   const text = html
     .replace(/<[^>]+>/g, '')
@@ -69,6 +74,24 @@ test('the web resume shows everything the PDF shows', () => {
   assert.deepEqual([...html.matchAll(/data-title="\d+ (.*?)"/g)].map((m) => m[1]), [
     'Education', 'Technical Skills', 'Experience', 'Research', 'Selected Projects', 'Open-source Contributions', 'Enterprise Delivery',
   ]);
+};
+
+test('the web resume shows everything the PDF shows', () => assertWebShowsAll(resume()));
+
+test('versions layer over resume.json on both pages', async () => {
+  const SECTIONS = ['meta', 'basics', 'education', 'skills', 'work', 'projects', 'publications'];
+  for (const name of versions) {
+    const version = JSON.parse(file(`versions/${name}.json`));
+    for (const key of Object.keys(version)) assert.ok(SECTIONS.includes(key), `${name}: unknown section "${key}"`);
+    const data = withVersion(resume(), version);
+    assert.equal(data.basics.email, resume().basics.email, `${name}: contact details come from resume.json`);
+    assertWebShowsAll(data);
+    const { state, html } = await runPdf({ 'resume.json': resume(), [`versions/${name}.json`]: version }, `?v=${name}`);
+    assert.equal(state, 'ready', name);
+    assert.equal(html.match(/<article /g).length, [...data.work, ...data.projects.filter((p) => p.type !== 'enterprise'), ...data.publications].length);
+  }
+  assert.equal((await runPdf({ 'resume.json': resume() }, '?v=missing')).state, 'error');
+  assert.equal((await runPdf({ 'resume.json': resume() }, '?v=../resume')).state, 'error');
 });
 
 test('the web resume escapes source text', () => {

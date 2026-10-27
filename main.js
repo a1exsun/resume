@@ -90,10 +90,19 @@ addEventListener('pageshow', (event) => {
 
 // ---- Content ----
 
+const load = async (src) => {
+  const res = await fetch(src, { cache: 'no-cache' });
+  if (!res.ok) throw new Error(`${src}: ${res.status} ${res.statusText}`);
+  return res.json();
+};
+
 try {
-  const res = await fetch(root.dataset.src, { cache: 'no-cache' });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  root.innerHTML = render(await res.json());
+  const version = new URLSearchParams(location.search).get('v');
+  if (version && !VERSION_RE.test(version)) throw new Error(`invalid version "${version}"`);
+  const data = version
+    ? withVersion(await load(root.dataset.src), await load(`versions/${version}.json`))
+    : await load(root.dataset.src);
+  root.innerHTML = render(data);
   await document.fonts.ready; // Lines must be split in the final font.
   if (motion) animate();
 } catch (err) {

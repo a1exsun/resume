@@ -21,6 +21,12 @@ const ICON_RE = new RegExp(
   'g',
 );
 
+// A version (versions/<v>.json, chosen with ?v=<v>) replaces whole top-level sections of resume.json;
+// basics merges one level so a version can change the summary without repeating the contact details.
+// pdf.html carries the same two definitions inline.
+export const VERSION_RE = /^[a-z0-9-]+$/;
+export const withVersion = (base, version) => ({ ...base, ...version, basics: { ...base.basics, ...version.basics } });
+
 export const escape = (s = '') =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
