@@ -38,13 +38,20 @@
       "keywords": [
         "Harness Engineering",
         "MCP",
+        "A2A",
         "ACP",
+        "RAG",
         "LangGraph",
         "MLOps",
         "vLLM",
-        "Comfy",
         "LLM Evaluation",
-        "Knowledge Distillation"
+        "Knowledge Distillation",
+        "Reinforcement Learning",
+        "Codex",
+        "Codex-sdk",
+        "Claude Code",
+        "Pi",
+        "Comfy"
       ]
     },
     {
@@ -77,6 +84,7 @@
     {
       "name": "DevOps",
       "keywords": [
+        "CI/CD",
         "AWS",
         "GCP",
         "Cloudflare",
