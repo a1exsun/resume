@@ -44,10 +44,6 @@
         "LangGraph",
         "MLOps",
         "vLLM",
-        "LLM Evaluation",
-        "Knowledge Distillation",
-        "Reinforcement Learning",
-        "Codex",
         "Codex-sdk",
         "Claude Code",
         "Pi",
@@ -55,17 +51,18 @@
       ]
     },
     {
-      "name": "Frontend",
+      "name": "DevOps",
       "keywords": [
-        "TypeScript",
-        "React",
-        "Next.js",
-        "Vue",
-        "Three.js",
-        "Micro-frontend",
-        "Tailwind",
-        "shadcn/ui",
-        "WebAssembly"
+        "CI/CD",
+        "AWS",
+        "GCP",
+        "Cloudflare",
+        "Supabase",
+        "Docker",
+        "Kubernetes",
+        "GitHub Actions",
+        "Modal",
+        "Vast.ai"
       ]
     },
     {
@@ -82,18 +79,17 @@
       ]
     },
     {
-      "name": "DevOps",
+      "name": "Frontend",
       "keywords": [
-        "CI/CD",
-        "AWS",
-        "GCP",
-        "Cloudflare",
-        "Supabase",
-        "Docker",
-        "Kubernetes",
-        "GitHub Actions",
-        "Modal",
-        "Vast.ai"
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Vue",
+        "Three.js",
+        "Micro-frontend",
+        "Tailwind",
+        "shadcn/ui",
+        "WebAssembly"
       ]
     }
   ],
